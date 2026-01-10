@@ -11,7 +11,7 @@ colors = PackedColorArray(0.20392157, 1, 1, 1, 0.20392157, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gxaan"]
 gradient = SubResource("Gradient_x80j0")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("meleeBox", "sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("meleeBox", "sprite") groups=["player"]]
 script = ExtResource("1_x80j0")
 meleeBox = NodePath("Sprite2D/Melee")
 sprite = NodePath("Sprite2D")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy3qmet4foxr1"]
+[gd_scene load_steps=6 format=3 uid="uid://cy3qmet4foxr1"]
 
 [ext_resource type="PackedScene" uid="uid://eb4ex56i1xbk" path="res://Scenes/Prefabs(Kinda)/Player.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://b0rj0fgjps75e" path="res://Scenes/Prefabs(Kinda)/Enemy.tscn" id="2_idj7w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idj7w"]
 
@@ -27,3 +28,6 @@ texture = SubResource("GradientTexture2D_rgh2o")
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
 position = Vector2(-274, 165)
+
+[node name="Enemy" parent="." instance=ExtResource("2_idj7w")]
+position = Vector2(444, 186)

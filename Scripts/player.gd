@@ -9,6 +9,9 @@ const JUMP_VELOCITY = -400.0
 var forward = 0
 @export var sprite : Sprite2D
 
+var maxHealth = 100
+var health = 100
+
 func _ready() -> void:
 	meleeBox.visible = false
 
@@ -39,6 +42,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
+	move_and_slide()
+	
 	if Input.is_action_just_pressed("Shoot"):
 		var bullet_temp = bullet.instantiate()
 		bullet_temp.direction = forward
@@ -49,5 +54,5 @@ func _physics_process(delta: float) -> void:
 		meleeBox.visible = true
 	else:
 		meleeBox.visible = false
-
-	move_and_slide()
+	if health <= 0:
+		visible = false

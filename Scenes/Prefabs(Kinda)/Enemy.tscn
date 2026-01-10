@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0rj0fgjps75e"]
+
+[ext_resource type="Script" uid="uid://bvx780u7wxkkv" path="res://Scripts/Enemy.gd" id="1_o5tjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5tjr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nh15x"]
+
+[sub_resource type="Gradient" id="Gradient_o5tjr"]
+colors = PackedColorArray(0.8117647, 0, 0, 1, 0.8117647, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tin6b"]
+gradient = SubResource("Gradient_o5tjr")
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_o5tjr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_o5tjr")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_nh15x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_tin6b")
