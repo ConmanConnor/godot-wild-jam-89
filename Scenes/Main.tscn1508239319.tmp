@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cy3qmet4foxr1"]
+
+[ext_resource type="PackedScene" uid="uid://eb4ex56i1xbk" path="res://Scenes/Prefabs(Kinda)/Player.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://b0rj0fgjps75e" path="res://Scenes/Prefabs(Kinda)/Enemy.tscn" id="2_idj7w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idj7w"]
+
+[sub_resource type="Gradient" id="Gradient_kln2b"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rgh2o"]
+gradient = SubResource("Gradient_kln2b")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 290)
+scale = Vector2(18, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_idj7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor"]
+texture = SubResource("GradientTexture2D_rgh2o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_r150o")]
+position = Vector2(-274, 165)
+
+[node name="Enemy" parent="." instance=ExtResource("2_idj7w")]
+position = Vector2(444, 186)

@@ -27,3 +27,7 @@ texture = SubResource("GradientTexture2D_gxaan")
 
 [node name="Melee" parent="Sprite2D" instance=ExtResource("2_gxaan")]
 position = Vector2(60, 5.039)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

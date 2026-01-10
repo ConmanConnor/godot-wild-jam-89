@@ -20,7 +20,7 @@ func _ready() -> void:
 func TakeDamage(damage: float):
 	health -= damage
 	if health <= 0:
-		print("Player died")
+		#print("Player died")
 		process_mode = Node.PROCESS_MODE_DISABLED
 		visible = false
 
@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 		
 
 func _physics_process(delta: float) -> void:
-	print(health)
+	#print(health)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -62,5 +62,10 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("Melee"):
 		meleeBox.visible = true
-	else:
-		meleeBox.visible = false
+		meleeBox.Attacking = true
+		$Timer.start()
+
+
+func _on_timer_timeout() -> void:
+	meleeBox.visible = false
+	meleeBox.Attacking = false
