@@ -21,6 +21,8 @@ func TakeDamage(damage: float):
 	health -= damage
 	if health <= 0:
 		print("Player died")
+		process_mode = Node.PROCESS_MODE_DISABLED
+		visible = false
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_left"):

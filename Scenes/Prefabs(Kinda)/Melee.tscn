@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dptuacu70cxyj"]
+[gd_scene load_steps=5 format=3 uid="uid://dptuacu70cxyj"]
+
+[ext_resource type="Script" uid="uid://cb7f4sv4mbqbr" path="res://Scripts/meleeAttack.gd" id="1_2x7af"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mym2"]
 
@@ -11,6 +13,8 @@ gradient = SubResource("Gradient_3mym2")
 scale = Vector2(2, 2)
 collision_layer = 16
 collision_mask = 13
+script = ExtResource("1_2x7af")
+damageDealt = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3mym2")
@@ -18,3 +22,5 @@ shape = SubResource("RectangleShape2D_3mym2")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.32, 0.32)
 texture = SubResource("GradientTexture2D_2x7af")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
