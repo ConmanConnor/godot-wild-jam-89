@@ -3,7 +3,14 @@ extends CharacterBody2D
 @onready var bullet = preload("res://Scenes/Prefabs(Kinda)/Bullet.tscn")
 
 const SPEED = 300.0
+const DASHSPEED = 600.0
+const DASH_TIME = 0.16
 const JUMP_VELOCITY = -400.0
+
+var canDash = true
+var isDash = false
+var dashDire = Vector2.RIGHT
+var dashTime = 0.0
 
 @export var meleeBox : Area2D
 var forward = 0
@@ -14,9 +21,33 @@ var health = 100
 
 @export var collisionShape : CollisionShape2D
 
-
 func _ready() -> void:
 	meleeBox.visible = false
+
+func dashLogic(delta : float) -> void:
+	
+	var inputDire: Vector2 = Vector2(
+		Input.get_axis("ui_left", "ui_right"),
+		Input.get_axis("ui_up", "ui_down")
+	).normalized()
+	
+	if inputDire.x != 0:
+		dashDire.x = inputDire.x
+	
+	if canDash and Input.is_action_just_pressed("Dash"):
+		var final_dash_dire: Vector2 = dashDire
+		if inputDire.y != 0 and inputDire.x == 0:
+			final_dash_dire.x = 0
+		final_dash_dire.y = inputDire.y
+		canDash = false
+		isDash = true
+		dashTime = DASH_TIME
+		
+		velocity = final_dash_dire * DASHSPEED
+	if isDash:
+		dashTime -= delta
+		if dashTime <= 0.0:
+			isDash = false
 	
 func TakeDamage(damage: float):
 	health -= damage
@@ -37,9 +68,18 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	#print(health)
-	# Add the gravity.
+	dashLogic(delta)
+	if isDash:
+		move_and_slide()
+		return
+	# Add the gravity && add dash logic.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		if !isDash and !canDash:
+			canDash = true
+	else:
+		if !isDash and !canDash:
+			canDash = true
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
