@@ -12,6 +12,7 @@ var forward = 0
 var maxHealth = 100
 var health = 100
 
+@export var collisionShape : CollisionShape2D
 
 
 func _ready() -> void:
@@ -53,6 +54,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("Crouch"):
+		collisionShape.scale.y = 2
+	if Input.is_action_just_released("Crouch"):
+		collisionShape.scale.y = 3.5
 	
 	if Input.is_action_just_pressed("Shoot"):
 		var bullet_temp = bullet.instantiate()

@@ -11,12 +11,13 @@ colors = PackedColorArray(0.20392157, 1, 1, 1, 0.20392157, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gxaan"]
 gradient = SubResource("Gradient_x80j0")
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("meleeBox", "sprite") groups=["player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("meleeBox", "sprite", "collisionShape") groups=["player"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_x80j0")
 meleeBox = NodePath("Sprite2D/Melee")
 sprite = NodePath("Sprite2D")
+collisionShape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(3.5, 3.5)
