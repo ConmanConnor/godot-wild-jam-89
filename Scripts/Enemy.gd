@@ -5,19 +5,41 @@ extends CharacterBody2D
 var speed = 150
 var enemyColliding : bool 
 
+var Charvelocity = Vector2.ZERO
+
 var health = 100
+
+enum{
+	IDLE,
+	CHASE,
+	ATTACK,
+	HIT
+}
+var state = CHASE
 
 func TakeDamage(damage: float):
 	health -= damage
 	if health <= 0:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		visible = false
-
-func _physics_process(delta: float) -> void:
-	var direction=(target.position - position).normalized()
-	velocity = direction * speed
+		
+func Move(Target,delta):
+	var direction = (Target.position - global_position).normalized()
+	var desired_velocity = direction * speed
+	var steering = (desired_velocity - velocity) * delta * 2.5
+	velocity += steering
 	look_at(target.position)
 	move_and_slide()
+
+func _physics_process(delta: float) -> void:
+	#var direction=(target.position - position).normalized()
+	#velocity = direction * speed
+	#look_at(target.position)
+	#move_and_slide()
+	
+	match state:
+		CHASE:
+			Move(target,delta)
 	
 	if enemyColliding:
 		target.TakeDamage(DamageRate * delta)
