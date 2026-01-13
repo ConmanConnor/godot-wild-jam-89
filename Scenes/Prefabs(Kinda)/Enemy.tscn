@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bvx780u7wxkkv" path="res://Scripts/Enemy.gd" id="1_o5tjr"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5tjr"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o5tjr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nh15x"]
 
@@ -14,14 +14,14 @@ gradient = SubResource("Gradient_o5tjr")
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Raycast") groups=["enemy"]]
 collision_layer = 4
-collision_mask = 27
+collision_mask = 25
 script = ExtResource("1_o5tjr")
 DamageRate = 10
 Raycast = NodePath("RayCast2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(3, 3)
-shape = SubResource("RectangleShape2D_o5tjr")
+shape = SubResource("CapsuleShape2D_o5tjr")
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(65, 0)

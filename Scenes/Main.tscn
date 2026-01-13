@@ -13,9 +13,34 @@ gradient = SubResource("Gradient_kln2b")
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2(-561, 229)
+scale = Vector2(0.5, 1)
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_idj7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor2"]
+texture = SubResource("GradientTexture2D_rgh2o")
+
+[node name="Floor3" type="StaticBody2D" parent="."]
+position = Vector2(559, 232)
+scale = Vector2(0.5, 1)
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3"]
+scale = Vector2(3, 3)
+shape = SubResource("RectangleShape2D_idj7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor3"]
+texture = SubResource("GradientTexture2D_rgh2o")
+
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 290)
 scale = Vector2(18, 1)
+collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 scale = Vector2(3, 3)
@@ -27,7 +52,7 @@ texture = SubResource("GradientTexture2D_rgh2o")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
-position = Vector2(-274, 165)
+position = Vector2(-559, 139)
 
 [node name="Enemy" parent="." instance=ExtResource("2_idj7w")]
-position = Vector2(444, 186)
+position = Vector2(151, 189)

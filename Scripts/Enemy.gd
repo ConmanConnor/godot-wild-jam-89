@@ -2,14 +2,14 @@ extends CharacterBody2D
 @export var ignoreme : CollisionShape2D
 @export var DamageRate : int
 @export var Raycast : RayCast2D
-@onready var target #= get_node("/root/Node2D/Player")
-@onready var point = get_node("/root/Node2D/Player")
-var speed = 150
+@onready var target 
+@onready var colTarg 
+var speed = 100
 var enemyColliding : bool 
 
 var Charvelocity = Vector2.ZERO
 
-var faceDire : Vector2
+var faceDire : float = 1
 
 var health = 100
 
@@ -21,10 +21,6 @@ enum{
 }
 var state = PATROL
 
-func _ready() -> void:
-	faceDire = Vector2(-1,-1)
-	scale = faceDire
-
 func TakeDamage(damage: float):
 	health -= damage
 	if health <= 0:
@@ -32,7 +28,8 @@ func TakeDamage(damage: float):
 		visible = false
 		
 func Patrol(delta):
-	velocity.x = lerp(velocity.x, 0.0 * speed, delta * 5)
+	velocity.x = lerp(velocity.x, faceDire * speed, delta * 5)
+
 	if Raycast.is_colliding():
 		var collider = Raycast.get_collider()
 		if collider.is_in_group("player"):
@@ -55,25 +52,37 @@ func Move(Target,delta):
 		state = PATROL
 
 func _physics_process(delta: float) -> void:	
-	print (state)
+	#print (state)
 	match state:
 		PATROL:
 			Patrol(delta)
 		CHASE:
 			Move(target,delta)
 	
-	if enemyColliding:
-		target.TakeDamage(DamageRate * delta)
+
 		
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 	move_and_slide()
+	
+	reverse_dire()
+	
+	if enemyColliding:
+		colTarg.TakeDamage(DamageRate * delta)
 
+func reverse_dire():
+	if is_on_wall():
+		faceDire = -faceDire
+		scale.x = faceDire
+		print(faceDire)
+		
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#print("Entered:", body.name)
 	if body.is_in_group("player"):
 		print("hit player")
 		enemyColliding = true
+		colTarg = body
 		
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
