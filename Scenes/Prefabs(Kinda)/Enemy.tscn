@@ -12,11 +12,12 @@ colors = PackedColorArray(0.8117647, 0, 0, 1, 0.8117647, 0, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_tin6b"]
 gradient = SubResource("Gradient_o5tjr")
 
-[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("Raycast") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 27
 script = ExtResource("1_o5tjr")
 DamageRate = 10
+Raycast = NodePath("RayCast2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(3, 3)
@@ -34,4 +35,9 @@ shape = SubResource("RectangleShape2D_nh15x")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_tin6b")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(200, 0)
+collision_mask = 2
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
